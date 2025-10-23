@@ -43,23 +43,36 @@ The Modular Media Streaming Suite is an educational and practical implementation
 
 ```mermaid
 graph TB
-    A[MediaEngine - Facade] --> B[MediaSource Interface]
+    %% Facade Pattern
+    A[MediaEngine - Facade] --> B[MediaProcessor]
+    A --> C[PlaylistManager]
     A --> D[PlaylistComposite]
     
-    B --> E[LocalMediaSource]
-    B --> F[HlsMediaSource]
-    B --> G[ApiMediaSource]
+    %% MediaSource Interface (Adapter Pattern)
+    E[MediaSource Interface] --> F[LocalMediaSource]
+    E --> G[HlsMediaSource]
+    E --> H[ApiMediaSource]
+    E --> I[MediaFormatAdapter]
     
-    D --> J[PlaylistItem]
-    D --> K[PlaylistComposite]
+    %% Adapter Pattern
+    I --> J[MediaFormatConverter]
     
-    L[MediaSourceDecorator] --> M[CachedMediaFile]
-    L --> N[EqualizerDecorator]
-    L --> O[SubtitleDecorator]
-    L --> P[WatermarkDecorator]
+    %% Composite Pattern
+    D --> K[PlaylistItem]
+    D --> L[PlaylistComposite]
     
-    Q[Adapter Pattern] --> R[MediaFormatAdapter]
-    Q --> S[StreamingAdapter]
+    %% Decorator Pattern
+    M[MediaSourceDecorator] --> N[CachedMediaFile]
+    M --> O[EqualizerDecorator]
+    M --> P[SubtitleDecorator]
+    M --> Q[WatermarkDecorator]
+    
+    %% Connections
+    A --> E
+    N --> E
+    O --> E
+    P --> E
+    Q --> E
 ```
 
 ### Component Responsibilities
