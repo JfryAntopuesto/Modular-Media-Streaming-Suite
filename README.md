@@ -72,26 +72,6 @@ graph TB
 | **MediaSourceDecorator** | Feature enhancement wrapper | Decorator Pattern |
 | **MediaFormatAdapter** | Interface compatibility for different formats | Adapter Pattern |
 
-## 🛠️ Technical Implementation
-
-### Prerequisites
-- Java 17 or higher
-- Maven 3.6+ (for dependency management)
-- Minimum 4GB RAM (for hardware rendering)
-- OpenGL 3.3+ support (for GPU acceleration)
-
-### Key Technologies
-- **Core Framework**: Pure Java with no external dependencies
-- **Structural Patterns**: Decorator, Composite, Adapter, and Facade patterns
-- **Audio Processing**: Custom DSP algorithms for real-time processing
-- **Streaming**: HTTP/2 support for efficient data transfer
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Java 17 or higher
-- Maven 3.6+ (optional, for dependency management)
-- Sample media files for testing
 
 ### Running the Application
 
@@ -155,48 +135,6 @@ The application provides an interactive menu system:
 
 Select option (1-8): 
 ```
-
-## 📖 Usage Guide
-
-### Basic Implementation
-
-```java
-// Initialize the media engine
-MediaEngine engine = new MediaEngine();
-
-// Create a playlist
-PlaylistComposite playlist = new PlaylistComposite("My Playlist");
-
-// Add media sources with decorators
-MediaSource localSource = new LocalMediaSource("video.mp4");
-MediaSource cachedSource = new CachedMediaFile(localSource);
-MediaSource equalizedSource = new EqualizerDecorator(cachedSource);
-
-// Add to playlist and play
-playlist.add(new PlaylistItem(equalizedSource));
-engine.playPlaylist(playlist);
-```
-
-### Advanced Configuration
-
-```java
-// Configure decorator chain
-EqualizerDecorator equalizer = new EqualizerDecorator(source);
-equalizer.setFrequencyBand(1000, 0.8f); // 1kHz boost
-equalizer.setFrequencyBand(5000, -0.3f); // 5kHz cut
-
-// Add watermark decorator
-WatermarkDecorator watermark = new WatermarkDecorator(equalizer);
-watermark.setWatermarkText("© 2024 Company");
-watermark.setPosition(WatermarkPosition.BOTTOM_RIGHT);
-
-// Create composite playlist
-PlaylistComposite mainPlaylist = new PlaylistComposite("Main");
-PlaylistComposite subPlaylist = new PlaylistComposite("Sub");
-subPlaylist.add(new PlaylistItem(watermark));
-mainPlaylist.add(subPlaylist);
-```
-
 ### 🧪 Testing
 
 #### Run All Tests
