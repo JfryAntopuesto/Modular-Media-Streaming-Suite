@@ -204,15 +204,6 @@ This project serves as a comprehensive laboratory for **Integrative Programming 
 - **Custom Decorators**: Extend `MediaSourceDecorator` for new features
 - **Custom Renderers**: Implement `Renderer` interface for specialized rendering needs
 - **Custom Playlist Items**: Extend `PlaylistItem` for specialized media handling
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please read our contributing guidelines and code of conduct before submitting pull requests.
-
 ---
 
 *This project is part of the Integrative Programming 2 curriculum, demonstrating practical application of software engineering principles and design patterns in a real-world context.*
