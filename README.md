@@ -3,14 +3,14 @@
 
 The Modular Media Streaming Suite is an educational and practical implementation of a professional media streaming platform. Built with clean architecture principles, it demonstrates how structural design patterns can be effectively applied to create maintainable, scalable, and extensible software systems.
 
-### Key Architectural Patterns
+### Key Structural Design Patterns
 
 | Pattern | Implementation | Purpose |
 |---------|---------------|---------|
 | **Decorator Pattern** | Feature decorators (Caching, Equalizer, Subtitles, Watermark) | Dynamic feature enhancement without modifying core classes |
 | **Composite Pattern** | `PlaylistComposite` for hierarchical media management | Unified interface for individual and composite media objects |
-| **Strategy Pattern** | Multiple rendering engines (Hardware/Software) | Runtime algorithm selection for optimal performance |
-| **Template Method** | Base decorator class with common functionality | Consistent behavior across all decorators |
+| **Adapter Pattern** | Media source adapters for different input formats | Interface compatibility between different media sources |
+| **Facade Pattern** | `MediaEngine` as unified interface to complex subsystem | Simplified interface to complex media processing system |
 
 ## 🚀 Core Features
 
@@ -26,10 +26,10 @@ The Modular Media Streaming Suite is an educational and practical implementation
 - **Dynamic Subtitle Rendering**: Multi-format subtitle support with real-time positioning
 - **Professional Watermarking**: Configurable visual overlays with transparency support
 
-### 🖥️ Rendering Engine Architecture
-- **Hardware-Accelerated Rendering**: GPU-optimized rendering pipeline for maximum performance
-- **Software Rendering**: Cross-platform CPU-based rendering for compatibility
-- **Adaptive Rendering**: Automatic fallback between rendering strategies based on system capabilities
+### 🖥️ Media Processing Architecture
+- **Unified Media Interface**: Consistent interface for all media sources through Facade pattern
+- **Extensible Decorator Chain**: Multiple decorators can be chained for enhanced functionality
+- **Hierarchical Playlist Management**: Composite pattern enables nested playlist structures
 
 ### 📋 Playlist Management System
 - **Hierarchical Playlist Structure**: Nested playlist support with unlimited depth
@@ -43,16 +43,12 @@ The Modular Media Streaming Suite is an educational and practical implementation
 
 ```mermaid
 graph TB
-    A[MediaEngine] --> B[MediaSource]
-    A --> C[Renderer]
+    A[MediaEngine - Facade] --> B[MediaSource Interface]
     A --> D[PlaylistComposite]
     
     B --> E[LocalMediaSource]
     B --> F[HlsMediaSource]
     B --> G[ApiMediaSource]
-    
-    C --> H[HardwareRenderer]
-    C --> I[SoftwareRenderer]
     
     D --> J[PlaylistItem]
     D --> K[PlaylistComposite]
@@ -61,6 +57,9 @@ graph TB
     L --> N[EqualizerDecorator]
     L --> O[SubtitleDecorator]
     L --> P[WatermarkDecorator]
+    
+    Q[Adapter Pattern] --> R[MediaFormatAdapter]
+    Q --> S[StreamingAdapter]
 ```
 
 ### Component Responsibilities
@@ -68,10 +67,10 @@ graph TB
 | Component | Responsibility | Design Pattern |
 |-----------|----------------|----------------|
 | **MediaEngine** | Central orchestration and lifecycle management | Facade Pattern |
-| **MediaSource** | Abstract media source interface | Strategy Pattern |
-| **Renderer** | Rendering strategy abstraction | Strategy Pattern |
+| **MediaSource** | Abstract media source interface | Adapter Pattern |
 | **PlaylistComposite** | Hierarchical media collection management | Composite Pattern |
 | **MediaSourceDecorator** | Feature enhancement wrapper | Decorator Pattern |
+| **MediaFormatAdapter** | Interface compatibility for different formats | Adapter Pattern |
 
 ## 🛠️ Technical Implementation
 
@@ -83,7 +82,7 @@ graph TB
 
 ### Key Technologies
 - **Core Framework**: Pure Java with no external dependencies
-- **Rendering**: OpenGL ES 3.0 for hardware acceleration
+- **Structural Patterns**: Decorator, Composite, Adapter, and Facade patterns
 - **Audio Processing**: Custom DSP algorithms for real-time processing
 - **Streaming**: HTTP/2 support for efficient data transfer
 
@@ -181,19 +180,21 @@ engine.playPlaylist(playlist);
 ### Advanced Configuration
 
 ```java
-// Configure rendering engine
-Renderer hardwareRenderer = new HardwareRenderer();
-engine.setRenderer(hardwareRenderer);
-
-// Configure decorators
+// Configure decorator chain
 EqualizerDecorator equalizer = new EqualizerDecorator(source);
 equalizer.setFrequencyBand(1000, 0.8f); // 1kHz boost
 equalizer.setFrequencyBand(5000, -0.3f); // 5kHz cut
 
-// Add watermark
+// Add watermark decorator
 WatermarkDecorator watermark = new WatermarkDecorator(equalizer);
 watermark.setWatermarkText("© 2024 Company");
 watermark.setPosition(WatermarkPosition.BOTTOM_RIGHT);
+
+// Create composite playlist
+PlaylistComposite mainPlaylist = new PlaylistComposite("Main");
+PlaylistComposite subPlaylist = new PlaylistComposite("Sub");
+subPlaylist.add(new PlaylistItem(watermark));
+mainPlaylist.add(subPlaylist);
 ```
 
 ### 🧪 Testing
@@ -221,8 +222,8 @@ java -cp . TestScenarios decoratorPatterns
 # Test 3: Composite pattern
 java -cp . TestScenarios compositePattern
 
-# Test 4: Strategy pattern
-java -cp . TestScenarios strategyPattern
+# Test 4: Adapter pattern
+java -cp . TestScenarios adapterPattern
 ```
 
 #### Performance Testing

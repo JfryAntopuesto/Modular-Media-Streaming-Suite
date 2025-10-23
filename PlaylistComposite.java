@@ -25,4 +25,15 @@ public class PlaylistComposite implements PlaylistItem {
             System.out.println((i+1) + ". " + children.get(i).title());
         }
     }
+    
+    public int getChildCount() {
+        return children.size();
+    }
+    
+    public void display() {
+        System.out.println("Playlist: " + name + " (" + children.size() + " items)");
+        for (int i = 0; i < children.size(); i++) {
+            System.out.println("  " + (i+1) + ". " + children.get(i).title());
+        }
+    }
 }
