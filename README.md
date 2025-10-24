@@ -208,34 +208,5 @@ java -Xmx2g -cp . MemoryAnalysis
 java -cp . RenderingPerformanceTest
 ```
 
-## 🎓 Educational Value
-
-This project serves as a comprehensive laboratory for **Integrative Programming 2**, demonstrating:
-
-- **Real-world Pattern Application**: How design patterns solve actual software engineering challenges
-- **Architecture Decision Making**: Trade-offs between different architectural approaches
-- **Code Organization**: Professional code structure and separation of concerns
-- **Extensibility Design**: Building systems that can grow and adapt to new requirements
-
-### Learning Outcomes
-- Understanding of structural design patterns in practice
-- Experience with clean architecture principles
-- Knowledge of media streaming system design
-- Skills in creating extensible, maintainable codebases
-
-## 🔧 Development Guidelines
-
-### Code Quality Standards
-- **SOLID Principles**: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion
-- **Clean Code**: Meaningful names, small functions, clear comments
-- **Design Patterns**: Consistent application of established patterns
-- **Error Handling**: Comprehensive exception management and recovery
-
-### Extension Points
-- **Custom Media Sources**: Implement `MediaSource` interface for new source types
-- **Custom Decorators**: Extend `MediaSourceDecorator` for new features
-- **Custom Renderers**: Implement `Renderer` interface for specialized rendering needs
-- **Custom Playlist Items**: Extend `PlaylistItem` for specialized media handling
----
 
 *This project is part of the Integrative Programming 2 curriculum, demonstrating practical application of software engineering principles and design patterns in a real-world context.*
