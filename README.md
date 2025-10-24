@@ -41,11 +41,10 @@ The Modular Media Streaming Suite is an educational and practical implementation
 
 ### Core Components
 
-mermaid
 graph TB
-    %% === FAÇADE PATTERN ===
-    subgraph FACADE_LAYER["Facade Layer"]
-        A[MediaEngine<br/><<Facade>>]
+    %% === FACADE LAYER ===
+    subgraph Facade_Layer [Facade Layer]
+        A[MediaEngine (Facade)]
         B[MediaProcessor]
         C[PlaylistManager]
         D[PlaylistComposite]
@@ -54,41 +53,37 @@ graph TB
         A --> D
     end
 
-    %% === MEDIA SOURCES (ADAPTER + DECORATOR) ===
-    subgraph MEDIA_LAYER["Media Sources Layer"]
-        E[[MediaSource<br/><<Interface>>]]
+    %% === MEDIA SOURCE LAYER ===
+    subgraph Media_Source_Layer [Media Source Layer]
+        E[MediaSource (Interface)]
         F[LocalMediaSource]
         G[HlsMediaSource]
         H[ApiMediaSource]
-        I[[MediaFormatAdapter<br/><<Interface>>]]
+        I[MediaFormatAdapter (Interface)]
         J[MediaFormatConverter]
-        
+
         E --> F
         E --> G
         E --> H
         I --> J
-        
-        %% Decorator Core
-        M[MediaSourceDecorator<br/><<Abstract>>]
+
+        M[MediaSourceDecorator (Abstract)]
         N[CachedMediaFile]
         O[EqualizerDecorator]
         P[SubtitleDecorator]
         Q[WatermarkDecorator]
-        
-        %% Decorator inheritance
+
         E --> M
         M --> N
         M --> O
         M --> P
         M --> Q
-
-        %% Decorator composition: decorators wrap MediaSource
         M -. wraps .-> E
     end
 
-    %% === COMPOSITE PATTERN ===
-    subgraph PLAYLIST_LAYER["Composite Pattern"]
-        R[[PlaylistComponent<br/><<Interface>>]]
+    %% === PLAYLIST (COMPOSITE) LAYER ===
+    subgraph Playlist_Layer [Composite Pattern]
+        R[PlaylistComponent (Interface)]
         S[PlaylistItem]
         T[PlaylistComposite]
         R --> S
@@ -96,10 +91,9 @@ graph TB
         T -. contains .-> R
     end
 
-    %% === CONNECTIONS ===
+    %% === CONNECTIONS BETWEEN LAYERS ===
     A --> E
     A --> R
-
 
 | Component | Responsibility | Design Pattern |
 |-----------|----------------|----------------|
