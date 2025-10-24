@@ -40,27 +40,26 @@ The Modular Media Streaming Suite is an educational and practical implementation
 ## 🏗️ System Architecture
 
 ### Core Components
-### Core Components
 ```mermaid
 graph TB
     %% === FACADE LAYER ===
-    subgraph Facade_Layer [Facade Layer]
-        A[MediaEngine (Facade)]
-        B[MediaProcessor]
-        C[PlaylistManager]
+    subgraph Facade_Layer ["Facade Layer"]
+        A["MediaEngine (Facade)"]
+        B["MediaProcessor"]
+        C["PlaylistManager"]
         A --> B
         A --> C
     end
 
     %% === MEDIA SOURCE LAYER ===
-    subgraph Media_Source_Layer [Media Source Layer]
-        E[MediaSource (Interface)]
-        F[LocalMediaSource]
-        G[HlsMediaSource]
-        H[ApiMediaSource]
-        I[MediaFormatAdapter]
-        J[MediaFormatConverter]
-        K[CachedMediaFile]
+    subgraph Media_Source_Layer ["Media Source Layer"]
+        E["MediaSource (Interface)"]
+        F["LocalMediaSource"]
+        G["HlsMediaSource"]
+        H["ApiMediaSource"]
+        I["MediaFormatAdapter"]
+        J["MediaFormatConverter"]
+        K["CachedMediaFile"]
 
         E --> F
         E --> G
@@ -69,26 +68,26 @@ graph TB
         E --> K
         I --> J
 
-        M[MediaSourceDecorator (Abstract)]
-        O[EqualizerDecorator]
-        P[SubtitleDecorator]
-        Q[WatermarkDecorator]
+        M["MediaSourceDecorator (Abstract)"]
+        O["EqualizerDecorator"]
+        P["SubtitleDecorator"]
+        Q["WatermarkDecorator"]
 
         E --> M
         M --> O
         M --> P
         M --> Q
-        M -. wraps .-> E
+        M -.-> E
     end
 
     %% === PLAYLIST (COMPOSITE) LAYER ===
-    subgraph Playlist_Layer [Composite Pattern]
-        R[PlaylistItem (Interface)]
-        S[PlaylistItem]
-        T[PlaylistComposite]
+    subgraph Playlist_Layer ["Composite Pattern"]
+        R["PlaylistItem (Interface)"]
+        S["PlaylistItem"]
+        T["PlaylistComposite"]
         R --> S
         R --> T
-        T -. contains .-> R
+        T -.-> R
     end
 
     %% === CONNECTIONS BETWEEN LAYERS ===
