@@ -42,12 +42,14 @@ The Modular Media Streaming Suite is an educational and practical implementation
 ### Core Components
 ```mermaid
 graph TB
+
     %% === FACADE LAYER ===
     subgraph Facade_Layer [Facade Layer]
         A[MediaEngine (Facade)]
         B[MediaProcessor]
         C[PlaylistManager]
         D[PlaylistComposite]
+
         A --> B
         A --> C
         A --> D
@@ -86,6 +88,7 @@ graph TB
         R[PlaylistComponent (Interface)]
         S[PlaylistItem]
         T[PlaylistComposite]
+
         R --> S
         R --> T
         T -. contains .-> R
