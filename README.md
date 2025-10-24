@@ -40,7 +40,8 @@ The Modular Media Streaming Suite is an educational and practical implementation
 ## 🏗️ System Architecture
 
 ### Core Components
-
+```
+mermaid
 graph TB
     %% === FACADE LAYER ===
     subgraph Facade_Layer [Facade Layer]
