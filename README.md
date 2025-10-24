@@ -41,39 +41,63 @@ The Modular Media Streaming Suite is an educational and practical implementation
 
 ### Core Components
 
-```mermaid
 graph TB
-    %% Facade Pattern
-    A[MediaEngine - Facade] --> B[MediaProcessor]
-    A --> C[PlaylistManager]
-    A --> D[PlaylistComposite]
-    
-    %% MediaSource Interface (Adapter Pattern)
-    E[MediaSource Interface] --> F[LocalMediaSource]
-    E --> G[HlsMediaSource]
-    E --> H[ApiMediaSource]
-    E --> I[MediaFormatAdapter]
-    
-    %% Adapter Pattern
-    I --> J[MediaFormatConverter]
-    
-    %% Composite Pattern
-    D --> K[PlaylistItem]
-    D --> L[PlaylistComposite]
-    
-    %% Decorator Pattern
-    M[MediaSourceDecorator] --> N[CachedMediaFile]
-    M --> O[EqualizerDecorator]
-    M --> P[SubtitleDecorator]
-    M --> Q[WatermarkDecorator]
-    
-    %% Connections
+    %% === FAÇADE PATTERN ===
+    subgraph FACADE_LAYER["Facade Layer"]
+        A[MediaEngine<br/><<Facade>>]
+        B[MediaProcessor]
+        C[PlaylistManager]
+        D[PlaylistComposite]
+        A --> B
+        A --> C
+        A --> D
+    end
+
+    %% === MEDIA SOURCES (ADAPTER + DECORATOR) ===
+    subgraph MEDIA_LAYER["Media Sources Layer"]
+        E[[MediaSource<br/><<Interface>>]]
+        F[LocalMediaSource]
+        G[HlsMediaSource]
+        H[ApiMediaSource]
+        I[[MediaFormatAdapter<br/><<Interface>>]]
+        J[MediaFormatConverter]
+        
+        E --> F
+        E --> G
+        E --> H
+        I --> J
+        
+        %% Decorator Core
+        M[MediaSourceDecorator<br/><<Abstract>>]
+        N[CachedMediaFile]
+        O[EqualizerDecorator]
+        P[SubtitleDecorator]
+        Q[WatermarkDecorator]
+        
+        %% Decorator inheritance
+        E --> M
+        M --> N
+        M --> O
+        M --> P
+        M --> Q
+
+        %% Decorator composition: decorators wrap MediaSource
+        M -. wraps .-> E
+    end
+
+    %% === COMPOSITE PATTERN ===
+    subgraph PLAYLIST_LAYER["Composite Pattern"]
+        R[[PlaylistComponent<br/><<Interface>>]]
+        S[PlaylistItem]
+        T[PlaylistComposite]
+        R --> S
+        R --> T
+        T -. contains .-> R
+    end
+
+    %% === CONNECTIONS ===
     A --> E
-    N --> E
-    O --> E
-    P --> E
-    Q --> E
-```
+    A --> R
 
 ### Component Responsibilities
 
