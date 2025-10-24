@@ -41,6 +41,7 @@ The Modular Media Streaming Suite is an educational and practical implementation
 
 ### Core Components
 
+mermaid
 graph TB
     %% === FAÇADE PATTERN ===
     subgraph FACADE_LAYER["Facade Layer"]
