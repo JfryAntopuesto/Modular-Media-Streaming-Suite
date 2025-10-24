@@ -94,7 +94,7 @@ graph TB
     A --> E
     A --> R
     C --> T
-
+```
 | Component | Responsibility | Design Pattern |
 |-----------|----------------|----------------|
 | **MediaEngine** | Central orchestration and lifecycle management | Facade Pattern |
