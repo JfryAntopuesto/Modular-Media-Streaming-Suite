@@ -40,19 +40,16 @@ The Modular Media Streaming Suite is an educational and practical implementation
 ## 🏗️ System Architecture
 
 ### Core Components
+### Core Components
 ```mermaid
 graph TB
-
     %% === FACADE LAYER ===
     subgraph Facade_Layer [Facade Layer]
         A[MediaEngine (Facade)]
         B[MediaProcessor]
         C[PlaylistManager]
-        D[PlaylistComposite]
-
         A --> B
         A --> C
-        A --> D
     end
 
     %% === MEDIA SOURCE LAYER ===
@@ -61,22 +58,23 @@ graph TB
         F[LocalMediaSource]
         G[HlsMediaSource]
         H[ApiMediaSource]
-        I[MediaFormatAdapter (Interface)]
+        I[MediaFormatAdapter]
         J[MediaFormatConverter]
+        K[CachedMediaFile]
 
         E --> F
         E --> G
         E --> H
+        E --> I
+        E --> K
         I --> J
 
         M[MediaSourceDecorator (Abstract)]
-        N[CachedMediaFile]
         O[EqualizerDecorator]
         P[SubtitleDecorator]
         Q[WatermarkDecorator]
 
         E --> M
-        M --> N
         M --> O
         M --> P
         M --> Q
@@ -85,10 +83,9 @@ graph TB
 
     %% === PLAYLIST (COMPOSITE) LAYER ===
     subgraph Playlist_Layer [Composite Pattern]
-        R[PlaylistComponent (Interface)]
+        R[PlaylistItem (Interface)]
         S[PlaylistItem]
         T[PlaylistComposite]
-
         R --> S
         R --> T
         T -. contains .-> R
@@ -97,6 +94,7 @@ graph TB
     %% === CONNECTIONS BETWEEN LAYERS ===
     A --> E
     A --> R
+    C --> T
 
 | Component | Responsibility | Design Pattern |
 |-----------|----------------|----------------|
@@ -108,6 +106,7 @@ graph TB
 
 
 ### Running the Application
+
 
 #### 1. Compile the Project
 ```bash
